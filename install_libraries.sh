@@ -1,19 +1,23 @@
-uname=xin
-cores=14
+uname=xin   #change to your username
+cores=14    #thread number when make libraries
+#Some libraries are commented because they need manual install.
+#Use master brach as default. Checkout to specific brach if it's neccessary.
+#The script is not tested until now. I just copy these commands when I install ubuntu.
+
 #update to newest kernel if it's neccessary.
 sudo apt-get -y install linux-headers-generic-hwe-18.04-edge
-sudo apt-get install linux-image-generic-hwe-18.04-edge
-sudo apt-get install xserver-xorg-hwe-18.04
+sudo apt-get -y install linux-image-generic-hwe-18.04-edge
+sudo apt-get -y install xserver-xorg-hwe-18.04
 
 #basic tools
 #install ssh
-sudo apt-get install openssh-server
+sudo apt-get -y install openssh-server
 
 #install git
-sudo apt-get install git
+sudo apt-get -y install git
 
 #install cmake
-sudo apt-get install  cmake
+sudo apt-get -y install  cmake
 
 
 cd /home/$uname
@@ -43,6 +47,8 @@ sudo apt-get -y install libgoogle-glog-dev
 sudo apt-get -y install libatlas-base-dev libopenblas-dev
 sudo apt-get -y install libsuitesparse-dev
 git clone https://github.com/ceres-solver/ceres-solver.git
+#It's recommanded to use stable brach such as 'git clone -b 1.14.0 https://github.com/ceres-solver/ceres-solver.git'
+#EvaluationCallback is missing in master branch now.
 mkdir ceres-solver/build && cd ceres-solver/build
 cmake ..
 make -j $cores
@@ -59,8 +65,8 @@ sudo apt-get -y install libgtk-3-dev
 sudo apt-get -y install libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev
 sudo apt-get -y install libdc1394-22-dev libraw1394-dev
 sudo apt-get -y install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswscale-dev libavdevice-dev libv4l-dev
-sudo apt-get install libxvidcore-dev libx264-dev
-sudo apt-get install libatlas-base-dev gfortran
+sudo apt-get -y install libxvidcore-dev libx264-dev
+sudo apt-get -y install libatlas-base-dev gfortran
 
 
 cmake -DOPENCV_EXTRA_MODULES_PATH=/home/$uname/Libraries/opencv_contrib/modules -DOPENCV_ENABLE_NONFREE:BOOL=ON ..
@@ -70,8 +76,14 @@ cd ../..
 
 
 #3D Graphic
-sudo apt install libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libglm-dev freeglut3-dev
-sudo apt install libglew-dev
+##CUDA
+#wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run
+#sudo sh cuda_10.2.89_440.33.01_linux.run
+#You may install cuda runfile in recovery mode. But I find 10.2 version won't create some PATH variables. 
+
+##openGL
+sudo apt -y install libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libglm-dev freeglut3-dev
+sudo apt -y install libglew-dev
 ##pangolin
 git clone https://github.com/stevenlovegrove/Pangolin.git
 mkdir Pangolin/build && cd Pangolin/build
@@ -87,7 +99,7 @@ cd ../..
 sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
-sudo apt install ros-melodic-desktop-full
+sudo apt -y install ros-melodic-desktop-full
 
 
 
@@ -96,20 +108,20 @@ sudo apt install ros-melodic-desktop-full
 sudo apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
 sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
 sudo apt update
-sudo apt-get install librealsense2-dkms
-sudo apt-get install librealsense2-utils
-sudo apt-get install librealsense2-dev
-sudo apt-get install librealsense2-dbg
+sudo apt-get -y install librealsense2-dkms
+sudo apt-get -y install librealsense2-utils
+sudo apt-get -y install librealsense2-dev
+sudo apt-get -y install librealsense2-dbg
 
 
 #texlive
-sudo apt-get install texlive-full
+sudo apt-get -y install texlive-full
 
 #Remote desk applications
 ##install x2go server
 sudo add-apt-repository ppa:x2go/stable
 sudo apt-get update
-sudo apt-get install x2goserver x2goserver-xsession
+sudo apt-get -y install x2goserver x2goserver-xsession
 ##virtual gl
 https://sourceforge.net/projects/virtualgl/files/
 
