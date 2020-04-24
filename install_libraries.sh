@@ -159,4 +159,9 @@ sudo apt install --install-recommends winehq-stable
 
 
 
+#Backup system
+#using multiple threads via pigz
+#sudo tar -cvf /backup.tar.gz -I pigz --exclude=/proc --exclude=/lost+found --exclude=/backup.tar.gz --exclude=/mnt --exclude=/sys --exclude=/media /
+#using gzip
+#sudo tar -cvpzf /backup.tgz  --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys --exclude=/media /
 
